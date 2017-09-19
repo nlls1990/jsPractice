@@ -145,6 +145,7 @@
         return obj;
     };
 
+    // 迭代器中对每个元素都应用函数后, 返回结果
     _.map = _.collect = function(obj, iteratee, context) {
         iteratee = cb(iteratee, context);
         var keys = !isArrayLike(obj) && _.keys(obj),
@@ -157,5 +158,30 @@
         }
         return results;
     };
+
+    // 创建一个自减的函数, 用于迭代左或右
+    function createReduce(dir) {
+
+        function iterator(obj, iteratee, memo, keys, index, length) {
+            for (; index >= 0 && index < length; index += dir) {
+                var currentKey = keys ? keys[index] : index;
+                memo = iteratee(memo, obj[currentKey], currentKey, obj);
+            }
+            return memo;
+        }
+
+        return function(obj, iteratee, memo, context) {
+            iteratee = optimizeCb(iteratee, context, 4);
+            var keys = !isArrayLike(obj) && _.keys(obj),
+                length = (keys || obj).length,
+                index = dir > 0 ? 0 : length -1;
+            // 判定初始值如果没有赋值时,我也不知道这是啥
+            if (arguments.length < 3) {
+                memo = obj[keys ? keys[index] : index];
+                index += dir;
+            }
+            return iterator(obj, iteratee, memo, keys, index, length);
+        };
+    }
 
 }.call(this));
