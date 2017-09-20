@@ -184,4 +184,29 @@
         };
     }
 
+        _.reduce = _.foldl = _.inject = createReduce(1);
+
+        // 右关联版本的reduce, 同样可以命名为foldr
+        _.reduceRight = _.foldr = createReduce(-1);
+
+        _.find = _.detect = function(obj, predicate, context) {
+            var key;
+            if (isArrayLike(obj)) {
+                key = _.findIndex(obj, predicate, context);
+            } else {
+                key = _.findKey(obj, predicate, context);
+            }
+            if (key !== void 0 && key !== -1) return obj[key];
+        };
+
+        _.filter = _.select = function(obj, predicate, context) {
+            var results = [];
+            predicate = cb(predicate, context);
+            _.each(obj, function(value, index, list) {
+                if (predicate(value, index, list)) results.push(value);
+            });
+            return results;
+        };
+    
+
 }.call(this));
