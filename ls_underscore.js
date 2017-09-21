@@ -207,6 +207,12 @@
             });
             return results;
         };
+
+        // 返回所有的元素, 对于真假测试中返回错误的那部分
+        _.reject = function(obj, predicate, context) {
+            return _.filter(obj, _.negate(cb(predicate)), context);
+        };
+
     
 
 }.call(this));
