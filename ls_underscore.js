@@ -1,4 +1,4 @@
-(function(){
+(function() {
     // Baseline setup
     // --------------
 
@@ -9,27 +9,27 @@
     var previousUnderscore = root._;
 
     // 保存字节用于最小版本:
-    var 
+    var
         ArrayProto = Array.prototype,
         ObjProto = Object.prototype,
         FuncProto = Function.prototype;
-        
+
     // 创建快速参考变量用于快速访问核心原型
     var
-        push            = ArrayProto.push,
-        slice           = ArrayProto.slice,
-        toString        = ObjProto.toString,
-        hasOwnProperty  = ObjProto.hasOwnProperty;
+        push = ArrayProto.push,
+        slice = ArrayProto.slice,
+        toString = ObjProto.toString,
+        hasOwnProperty = ObjProto.hasOwnProperty;
 
     // 所有的ES5原生函数实现, 在这里声明
     var
-        nativeIsArray   = Array.isArray,
-        nativeKeys      = Object.keys,
-        nativeBind      = FuncProto.bind,
-        nativeCreate    = Object.create;
+        nativeIsArray = Array.isArray,
+        nativeKeys = Object.keys,
+        nativeBind = FuncProto.bind,
+        nativeCreate = Object.create;
 
     //定义一个裸函数
-    var Ctor = function(){};
+    var Ctor = function() {};
 
     //创建'_'函数(对象)
     var _ = function(obj) {
@@ -58,20 +58,24 @@
     var optimizeCb = function(func, context, argCount) {
         if (context === void 0) return func;
         switch (argCount == null ? 3 : argCount) {
-            case 1: return function(value) {
-                return func.call(context, value);
-            };
-            case 2: return function(value, other) {
-                return func.call(context, value, other);
-            };
-            case 3: return function(value, index, collection) {
-                return func.call(context, value, index, collection);
-            };
-            case 4: return function(accumulator, value, index, collection) {
-                return func.call(context, accumulator, value, index, collection);
-            };
+            case 1:
+                return function(value) {
+                    return func.call(context, value);
+                };
+            case 2:
+                return function(value, other) {
+                    return func.call(context, value, other);
+                };
+            case 3:
+                return function(value, index, collection) {
+                    return func.call(context, value, index, collection);
+                };
+            case 4:
+                return function(accumulator, value, index, collection) {
+                    return func.call(context, accumulator, value, index, collection);
+                };
         }
-        return function(){
+        return function() {
             return func.apply(context, arguments);
         };
     };
@@ -174,7 +178,7 @@
             iteratee = optimizeCb(iteratee, context, 4);
             var keys = !isArrayLike(obj) && _.keys(obj),
                 length = (keys || obj).length,
-                index = dir > 0 ? 0 : length -1;
+                index = dir > 0 ? 0 : length - 1;
             // 判定初始值如果没有赋值时,我也不知道这是啥
             if (arguments.length < 3) {
                 memo = obj[keys ? keys[index] : index];
@@ -184,63 +188,70 @@
         };
     }
 
-        _.reduce = _.foldl = _.inject = createReduce(1);
+    _.reduce = _.foldl = _.inject = createReduce(1);
 
-        // 右关联版本的reduce, 同样可以命名为foldr
-        _.reduceRight = _.foldr = createReduce(-1);
+    // 右关联版本的reduce, 同样可以命名为foldr
+    _.reduceRight = _.foldr = createReduce(-1);
 
-        _.find = _.detect = function(obj, predicate, context) {
-            var key;
-            if (isArrayLike(obj)) {
-                key = _.findIndex(obj, predicate, context);
-            } else {
-                key = _.findKey(obj, predicate, context);
-            }
-            if (key !== void 0 && key !== -1) return obj[key];
-        };
+    _.find = _.detect = function(obj, predicate, context) {
+        var key;
+        if (isArrayLike(obj)) {
+            key = _.findIndex(obj, predicate, context);
+        } else {
+            key = _.findKey(obj, predicate, context);
+        }
+        if (key !== void 0 && key !== -1) return obj[key];
+    };
 
-        _.filter = _.select = function(obj, predicate, context) {
-            var results = [];
-            predicate = cb(predicate, context);
-            _.each(obj, function(value, index, list) {
-                if (predicate(value, index, list)) results.push(value);
-            });
-            return results;
-        };
+    _.filter = _.select = function(obj, predicate, context) {
+        var results = [];
+        predicate = cb(predicate, context);
+        _.each(obj, function(value, index, list) {
+            if (predicate(value, index, list)) results.push(value);
+        });
+        return results;
+    };
 
-        // 返回所有的元素, 对于真假测试中返回错误的那部分
-        _.reject = function(obj, predicate, context) {
-            return _.filter(obj, _.negate(cb(predicate)), context);
-        };
+    // 返回所有的元素, 对于真假测试中返回错误的那部分
+    _.reject = function(obj, predicate, context) {
+        return _.filter(obj, _.negate(cb(predicate)), context);
+    };
 
-        _.every = _.all = function(obj, predicate, context) {
-            predicate = cb(predicate, context);
-            var keys = !isArrayLike(obj) && _.keys(obj),
-                length = (keys || obj).length;
-            for (var index = 0; index < length; index++) {
-                var currentKey = keys ? keys[index] : index;
-                if (!predicate(obj[currentKey], currentKey, obj)) return false;
-            }
-            return true;
-        };
+    _.every = _.all = function(obj, predicate, context) {
+        predicate = cb(predicate, context);
+        var keys = !isArrayLike(obj) && _.keys(obj),
+            length = (keys || obj).length;
+        for (var index = 0; index < length; index++) {
+            var currentKey = keys ? keys[index] : index;
+            if (!predicate(obj[currentKey], currentKey, obj)) return false;
+        }
+        return true;
+    };
 
-        _.some = _.any = function(obj, predicate, context) {
-            predicate = cb(predicate, context);
-            var keys = !isArrayLike(obj) && _.keys(obj),
-                length = (keys || obj).length;
-            for (var index = 0; index < length; index++) {
-                var currentKey = keys ? keys[index] : index;
-                if (predicate(obj[currentKey], currentKey, obj)) return true;
-            }
-            return false;
-        };
+    _.some = _.any = function(obj, predicate, context) {
+        predicate = cb(predicate, context);
+        var keys = !isArrayLike(obj) && _.keys(obj),
+            length = (keys || obj).length;
+        for (var index = 0; index < length; index++) {
+            var currentKey = keys ? keys[index] : index;
+            if (predicate(obj[currentKey], currentKey, obj)) return true;
+        }
+        return false;
+    };
 
-        _.contains = _.includes = _.include = function(obj, item, fromIndex, guard) {
-            if (!isArrayLike(obj)) obj = _.values(obj);
-            if (typeof fromIndex != 'number' || guard) fromIndex = 0;
-            return _.indexOf(obj, item, fromIndex) >= 0;
-        };
+    _.contains = _.includes = _.include = function(obj, item, fromIndex, guard) {
+        if (!isArrayLike(obj)) obj = _.values(obj);
+        if (typeof fromIndex != 'number' || guard) fromIndex = 0;
+        return _.indexOf(obj, item, fromIndex) >= 0;
+    };
 
-    
+    _.invoke = function(obj, method) {
+        var args = slice.call(arguments, 2);
+        var isFunc = _.isFunction(method);
+        return _.map(obj, function(value) {
+            var func = isFunc ? method : value[method];
+            return func == null ? func : func.apply(value, args);
+        });
+    };
 
 }.call(this));
