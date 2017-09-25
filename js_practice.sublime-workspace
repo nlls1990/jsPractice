@@ -1,0 +1,370 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"func",
+				"func"
+			],
+			[
+				"isF",
+				"isFunc"
+			],
+			[
+				"ar",
+				"arguments"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "ls_underscore.js",
+			"settings":
+			{
+				"buffer_size": 8268,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "underscore.js",
+			"settings":
+			{
+				"buffer_size": 59082,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 375.0,
+		"last_filter": "inst",
+		"selected_items":
+		[
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 538.0
+	},
+	"console":
+	{
+		"height": 130.0,
+		"history":
+		[
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/E/01_Works/94_Js_Practice/jsPractice"
+	],
+	"file_history":
+	[
+		"/I/code/HX_3563I/customers/customer/customer_konka/datapicture/readme.txt",
+		"/H/HX_3563I/cvte_build/include/global_CVT_DEF_PQ_TYPE.h",
+		"/H/HX_3563I/Supernova/develop/include/MStarSDK/mapi_types.h",
+		"/H/HX_3563I/sublime_pj.sublime-project",
+		"/H/HX_3563I/customers/buildtools/src/cvte_create_edid/cvt_edid.h",
+		"/H/HX_3563I/customers/common/Global_Default_Config.h",
+		"/H/HX_3563I/customers/customer/customer_konka/customer_konka.h",
+		"/H/HX_3563I/Supernova/projects/customization/MStarSDK/pq/mapi_pql_customer.cpp",
+		"/H/HX_3563I/Supernova/projects/ui/nebula/konka/dvbt_FHD/src/FacCVTFrame.cpp",
+		"/H/HX_3563I/Supernova/projects/ui/nebula/konka/dvbt_FHD/src/FacCVTApi.cpp",
+		"/H/HX_3563I/Supernova/projects/customerinfo/inc/Customer_Info.h",
+		"/H/HX_3563I/Supernova/projects/ui/nebula/konka/dvbt_FHD/src/IdleAppFrame.cpp",
+		"/H/HX_3563I/Supernova/projects/msrv/control/src/MSrv_Control.cpp",
+		"/H/HX_3563I/customers/common/Global_Product_Define.h",
+		"/E/01_Works/94_Js_Practice/jsPractice/underscore.js",
+		"/E/01_Works/94_Js_Practice/jsPractice/ls_underscore.js",
+		"/C/Users/lishuo/AppData/Roaming/Sublime Text 3/Packages/HTML-CSS-JS Prettify/HTMLPrettify.sublime-settings"
+	],
+	"find":
+	{
+		"height": 38.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "ls_underscore.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8268,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7947,
+								7953
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4104.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 1,
+					"file": "underscore.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 59082,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								10469,
+								10469
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4423.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.5,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "js_practice.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"quicksettingsubmenuframe.cpp",
+				"konka\\dvbt_FHD\\src\\TvSetting\\QuickSettingSubMenuFrame.cpp"
+			],
+			[
+				"id_pq_common_default",
+				"customers\\common\\default_config\\datac\\ID_PQ_COMMON_DEFAULT.c"
+			],
+			[
+				"cvt_def_pq_type",
+				"cvte_build\\include\\global_CVT_DEF_PQ_TYPE.h"
+			],
+			[
+				"customerkonka",
+				"customers\\customer\\customer_konka\\customer_konka.h"
+			],
+			[
+				"id_pq_cvtedefault_3563.c",
+				"customers\\customer\\customer_konka\\datapicture\\ID_PQ_CVTEDEFAULT_3563.c"
+			],
+			[
+				"msrv_system_database_pq_default.h",
+				"msrv\\system_database\\src\\MSrv_System_Database_PQ_default.h"
+			],
+			[
+				"msrvsystemdatabasecpp",
+				"msrv\\system_database\\src\\MSrv_System_Database.cpp"
+			],
+			[
+				"msrvfactorymodecpp",
+				"msrv\\common\\src\\MSrv_Factory_Mode.cpp"
+			],
+			[
+				"faccvtapicpp",
+				"konka\\dvbt_FHD\\src\\FacCVTApi.cpp"
+			],
+			[
+				"faccvtframecpp",
+				"konka\\dvbt_FHD\\src\\FacCVTFrame.cpp"
+			],
+			[
+				"konkafaccvtframecpp",
+				"HX_3563I\\Supernova\\projects\\ui\\nebula\\konka\\dvbt_FHD\\src\\FacCVTFrame.cpp"
+			],
+			[
+				"mapi_pql_customer.cpp",
+				"HX_3563I\\Supernova\\projects\\customization\\MStarSDK\\pq\\mapi_pql_customer.cpp"
+			],
+			[
+				"konkadileappframcpp",
+				"HX_3563I\\Supernova\\projects\\ui\\nebula\\konka\\dvbt_FHD\\src\\IdleAppFrame.cpp"
+			],
+			[
+				"global_product_define.h",
+				"HX_3563I\\customers\\common\\Global_Product_Define.h"
+			],
+			[
+				"cvt_edid.h",
+				"HX_3563I\\customers\\buildtools\\src\\cvte_create_edid\\cvt_edid.h"
+			],
+			[
+				"globaldefaultconfig",
+				"HX_3563I\\customers\\common\\Global_Default_Config.h"
+			],
+			[
+				"customerinfo",
+				"HX_3563I\\Supernova\\projects\\customerinfo\\inc\\Customer_Info.h"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"H:\\HX_3563I\\sublime_pj.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 1,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 181.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
