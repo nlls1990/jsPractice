@@ -335,7 +335,25 @@
         return _.shuffle(obj).slice(0, Math.max(0, n));
     };
 
-    
+    // 对象的值进行排序, 判断标准由迭代函数决定
+    _.sortBy = function(obj, iteratee, context) {
+        iteratee = cb(iteratee, context);
+        return _.pluck(_.map(obj, function(value, index, list) {
+            return {
+                value: value,
+                index: index,
+                criteria: iteratee(value, index, list)
+            };
+        }).sort(function(left, right) {
+            var a = left.criteria;
+            var b = right.criteria;
+            if (a !== b) {
+                if (a > b || a === void 0) return 1;
+                if (a < b || b === void 0) return -1;
+            }
+            return left.index - right.index;
+        }), 'value');
+    };
 
 
 }.call(this));
