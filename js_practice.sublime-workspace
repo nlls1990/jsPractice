@@ -4,8 +4,12 @@
 		"selected_items":
 		[
 			[
+				"isA",
+				"isArrayLike"
+			],
+			[
 				"func",
-				"func"
+				"function"
 			],
 			[
 				"isF",
@@ -23,9 +27,17 @@
 			"file": "ls_underscore.js",
 			"settings":
 			{
-				"buffer_size": 8268,
+				"buffer_size": 9416,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "js_practice.sublime-project",
+			"settings":
+			{
+				"buffer_size": 45,
+				"line_ending": "Unix"
 			}
 		},
 		{
@@ -143,15 +155,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8268,
+						"buffer_size": 9416,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7947,
-								7953
+								8990,
+								8990
 							]
 						],
 						"settings":
@@ -161,7 +173,35 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4104.0,
+						"translation.y": 4113.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "js_practice.sublime-project",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 45,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -174,7 +214,7 @@
 			"sheets":
 			[
 				{
-					"buffer": 1,
+					"buffer": 2,
 					"file": "underscore.js",
 					"semi_transient": false,
 					"settings":
@@ -197,10 +237,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4423.0,
+						"translation.y": 5017.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -234,7 +274,7 @@
 		"cols":
 		[
 			0.0,
-			0.5,
+			0.692639447959,
 			1.0
 		],
 		"rows":
@@ -340,7 +380,7 @@
 		[
 			[
 				"",
-				"H:\\HX_3563I\\sublime_pj.sublime-project"
+				"H:\\HX_3563I\\sublime_pj.sublime-workspace"
 			]
 		],
 		"width": 380.0
@@ -354,7 +394,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 0,
 	"settings":
 	{
 	},
