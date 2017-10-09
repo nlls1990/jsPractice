@@ -355,5 +355,20 @@
         }), 'value');
     };
 
+    // 一个内部函数, 用于聚合
+    var group = function(behavior) {
+        return function(obj, iteratee, context) {
+            var result = {};
+            iteratee = cb(iteratee, context);
+            _.each(obj, function(value, index) {
+                var key = iteratee(value, index, obj);
+                behavior(result, value, key);
+            });
+            return result;
+        };
+    };
+
+    
+
 
 }.call(this));

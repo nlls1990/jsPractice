@@ -24,10 +24,13 @@
 	"buffers":
 	[
 		{
+			"contents": "(function() {\n    // Baseline setup\n    // --------------\n\n    // 创建根对象, `window` 处于浏览器中, `exports`在服务器端\n    var root = this;\n\n    // 保存前置下划线的变量\n    var previousUnderscore = root._;\n\n    // 保存字节用于最小版本:\n    var\n        ArrayProto = Array.prototype,\n        ObjProto = Object.prototype,\n        FuncProto = Function.prototype;\n\n    // 创建快速参考变量用于快速访问核心原型\n    var\n        push = ArrayProto.push,\n        slice = ArrayProto.slice,\n        toString = ObjProto.toString,\n        hasOwnProperty = ObjProto.hasOwnProperty;\n\n    // 所有的ES5原生函数实现, 在这里声明\n    var\n        nativeIsArray = Array.isArray,\n        nativeKeys = Object.keys,\n        nativeBind = FuncProto.bind,\n        nativeCreate = Object.create;\n\n    //定义一个裸函数\n    var Ctor = function() {};\n\n    //创建'_'函数(对象)\n    var _ = function(obj) {\n        if (obj instanceof _) return obj;\n        if (!(this instanceof _)) return new _(obj);\n        this._wrapped = obj;\n    };\n\n    // 导出 underscore 对象给 nodejs\n    // 后台适配中需要包含API, 当处于浏览器时, 添加 `_` 作为一个全局对象\n    if (typeof exports !== 'undefined') {\n        if (typeof module !== 'undefined' && module.exports) {\n            exports = module.exports = _;\n        }\n        exports._ = _;\n    } else {\n        root._ = _;\n    }\n\n    // Current version.\n    _.VERSION = '1.8.3'\n\n\n    // 用于内部使用的高阶函数, 传入回调函数\n    // 主要用来执行函数病改变所执行函数的作用域, 最后加了一个argCount参数来制定参数个数\n    var optimizeCb = function(func, context, argCount) {\n        if (context === void 0) return func;\n        switch (argCount == null ? 3 : argCount) {\n            case 1:\n                return function(value) {\n                    return func.call(context, value);\n                };\n            case 2:\n                return function(value, other) {\n                    return func.call(context, value, other);\n                };\n            case 3:\n                return function(value, index, collection) {\n                    return func.call(context, value, index, collection);\n                };\n            case 4:\n                return function(accumulator, value, index, collection) {\n                    return func.call(context, accumulator, value, index, collection);\n                };\n        }\n        return function() {\n            return func.apply(context, arguments);\n        };\n    };\n\n\n    var cb = function(value, context, argCount) {\n        if (value == null) return _.identity;\n        if (_.isFunction(value)) return optimizeCb(value, context, argCount);\n        if (_.isObject(value)) return _.matcher(value);\n        return _.property(value);\n    };\n    _.iteratee = function(value, context) {\n        return cb(value, context, Infinity);\n    };\n\n    // 内部函数用于创建分配器函数\n    var createAssigner = function(keysFunc, undefineOnly) {\n        return function(obj) {\n            var length = arguments.length;\n            if (length < 2 || obj == null) return obj;\n            for (var index = 1; index < length; index++) {\n                var source = arguments[index],\n                    keys = keysFunc(source),\n                    l = keys.length;\n                for (var i = 0; i < l; i++) {\n                    var key = keys[i];\n                    if (!undefinedOnly || obj[key] == void 0) obj[key] = source[key];\n                }\n            }\n            return obj;\n        }\n    }\n\n    // 内部函数用于创建一个新的对象, 这个对象继承自另外一个???\n    var baseCreate = function(prototype) {\n        if (!_.isObject(prototype)) return {};\n        if (nativeCreate) return nativeCreate(prototype);\n        Ctor.prototype = prototype;\n        var result = new Ctor;\n        Ctor.prototype = null;\n        return result;\n    };\n\n    var property = function(key) {\n        return function(obj) {\n            return obj == null ? void 0 : obj[key];\n        };\n    };\n\n    // \n    var MAX_ARRAY_INDEX = Math.pow(2, 53) - 1;\n    var getLength = property('length');\n    var isArrayLike = function(collection) {\n        var length = getLength(collection);\n        return typeof length == 'number' && length >= 0 && length <= MAX_ARRAY_INDEX;\n    };\n\n    _.each = _.forEach = function(obj, iteratee, context) {\n        iteratee = optimizeCb(iteratee, context);\n        var i, length;\n        if (isArrayLike(obj)) {\n            for (var i = 0, length = obj.length; i < length; i++) {\n                iteratee(obj[keys[i]], keys[i], obj);\n            }\n        } else {\n            var keys = _.keys(obj);\n            for (i = 0, length = keys.length; i < length; i++) {\n                iteratee(obj[keys[i]], keys[i], obj);\n            }\n        }\n        return obj;\n    };\n\n    // 迭代器中对每个元素都应用函数后, 返回结果\n    _.map = _.collect = function(obj, iteratee, context) {\n        iteratee = cb(iteratee, context);\n        var keys = !isArrayLike(obj) && _.keys(obj),\n            length = (keys || obj).length,\n            results = Array(length);\n\n        for (var index = 0; index < length; index++) {\n            var currentKey = keys ? keys[index] : index;\n            results[index] = iteratee(obj[currentKey], currentKey, obj);\n        }\n        return results;\n    };\n\n    // 创建一个自减的函数, 用于迭代左或右\n    function createReduce(dir) {\n\n        function iterator(obj, iteratee, memo, keys, index, length) {\n            for (; index >= 0 && index < length; index += dir) {\n                var currentKey = keys ? keys[index] : index;\n                memo = iteratee(memo, obj[currentKey], currentKey, obj);\n            }\n            return memo;\n        }\n\n        return function(obj, iteratee, memo, context) {\n            iteratee = optimizeCb(iteratee, context, 4);\n            var keys = !isArrayLike(obj) && _.keys(obj),\n                length = (keys || obj).length,\n                index = dir > 0 ? 0 : length - 1;\n            // 判定初始值如果没有赋值时,我也不知道这是啥\n            if (arguments.length < 3) {\n                memo = obj[keys ? keys[index] : index];\n                index += dir;\n            }\n            return iterator(obj, iteratee, memo, keys, index, length);\n        };\n    }\n\n    _.reduce = _.foldl = _.inject = createReduce(1);\n\n    // 右关联版本的reduce, 同样可以命名为foldr\n    _.reduceRight = _.foldr = createReduce(-1);\n\n    _.find = _.detect = function(obj, predicate, context) {\n        var key;\n        if (isArrayLike(obj)) {\n            key = _.findIndex(obj, predicate, context);\n        } else {\n            key = _.findKey(obj, predicate, context);\n        }\n        if (key !== void 0 && key !== -1) return obj[key];\n    };\n\n    _.filter = _.select = function(obj, predicate, context) {\n        var results = [];\n        predicate = cb(predicate, context);\n        _.each(obj, function(value, index, list) {\n            if (predicate(value, index, list)) results.push(value);\n        });\n        return results;\n    };\n\n    // 返回所有的元素, 对于真假测试中返回错误的那部分\n    _.reject = function(obj, predicate, context) {\n        return _.filter(obj, _.negate(cb(predicate)), context);\n    };\n\n    _.every = _.all = function(obj, predicate, context) {\n        predicate = cb(predicate, context);\n        var keys = !isArrayLike(obj) && _.keys(obj),\n            length = (keys || obj).length;\n        for (var index = 0; index < length; index++) {\n            var currentKey = keys ? keys[index] : index;\n            if (!predicate(obj[currentKey], currentKey, obj)) return false;\n        }\n        return true;\n    };\n\n    _.some = _.any = function(obj, predicate, context) {\n        predicate = cb(predicate, context);\n        var keys = !isArrayLike(obj) && _.keys(obj),\n            length = (keys || obj).length;\n        for (var index = 0; index < length; index++) {\n            var currentKey = keys ? keys[index] : index;\n            if (predicate(obj[currentKey], currentKey, obj)) return true;\n        }\n        return false;\n    };\n\n    _.contains = _.includes = _.include = function(obj, item, fromIndex, guard) {\n        if (!isArrayLike(obj)) obj = _.values(obj);\n        if (typeof fromIndex != 'number' || guard) fromIndex = 0;\n        return _.indexOf(obj, item, fromIndex) >= 0;\n    };\n\n    _.invoke = function(obj, method) {\n        var args = slice.call(arguments, 2);\n        var isFunc = _.isFunction(method);\n        return _.map(obj, function(value) {\n            var func = isFunc ? method : value[method];\n            return func == null ? func : func.apply(value, args);\n        });\n    };\n\n    _.pluck = function(obj, key) {\n        return _.map(obj, _.property(key));\n    };\n\n    _.where = function(obj, attrs) {\n        return _.filter(obj, _.matcher(attrs));\n    };\n\n    _.findWhere = function(obj, attrs) {\n        return _.find(obj, _.matcher(attrs));\n    };\n\n    _.max = function(obj, iteratee, context) {\n        var result = -Infinity, lastComputed = -Infinity,\n            value, computed;\n        if (iteratee == null && obj != null) {\n            obj = isArrayLike(obj) ? obj : _.values(obj);\n            for (var i = 0, length = obj.length; i < length; i++) {\n                value = obj[i];\n                if (value > result) {\n                    result = value;\n                }\n            }\n        } else {\n            iteratee = cb(iteratee, context);\n            _.each(obj, function(value, index, list) {\n                computed = iteratee(value, index, list);\n                if (computed > lastComputed || computed === -Infinity && result === -Infinity) {\n                    result = value;\n                    lastComputed = computed;\n                }\n            });\n        }\n        return result;\n    };\n\n    _.min = function(obj, iteratee, context) {\n        var result = Infinity, lastComputed = Infinity,\n            value, computed;\n        if (iteratee == null && obj != null) {\n            obj = isArrayLike(obj) ? obj : _.values(obj);\n            for (var i = 0, length = obj.length; i < length; i++) {\n                value = obj[i];\n                if (value < result) {\n                    result = value;\n                }\n            }\n        } else {\n            iteratee =cb(iteratee, context);\n            _.each(obj, function(value, index, list) {\n                computed = iteratee(value, index, list);\n                if (computed < lastComputed || computed === Infinity && result === Infinity) {\n                    result = value;\n                    lastComputed = computed;\n                }\n            });\n        }\n        return result;\n    };\n\n    // 生成一个随机数的集合, 使用最新版本的Fisher-Yates shuffle\n    _.shuffle = function(obj) {\n        var set = isArrayLike(obj) ? obj : _.values(obj);\n        var length = set.length;\n        var shuffled = Array(length);\n        for (var index = 0, rand; index < length; index++) {\n            rand = _.random(0, index);\n            if (rand !== index) shuffled[index] = shuffled[rand];\n            shuffled[rand] = set[index];\n        }\n        return shuffled;\n    };\n\n    _.sample = function(obj, n, guard) {\n        if (n == null || guard) {\n            if (!isArrayLike(obj)) obj = _.values(obj);\n            return obj[_.random(obj.length - 1)];\n        }\n        return _.shuffle(obj).slice(0, Math.max(0, n));\n    };\n\n    // 对象的值进行排序, 判断标准由迭代函数决定\n    _.sortBy = function(obj, iteratee, context) {\n        iteratee = cb(iteratee, context);\n        return _.pluck(_.map(obj, function(value, index, list) {\n            return {\n                value: value,\n                index: index,\n                criteria: iteratee(value, index, list)\n            };\n        }).sort(function(left, right) {\n            var a = left.criteria;\n            var b = right.criteria;\n            if (a !== b) {\n                if (a > b || a === void 0) return 1;\n                if (a < b || b === void 0) return -1;\n            }\n            return left.index - right.index;\n        }), 'value');\n    };\n\n    \n\n\n}.call(this));",
 			"file": "ls_underscore.js",
+			"file_size": 12683,
+			"file_write_time": 131512161986487518,
 			"settings":
 			{
-				"buffer_size": 9416,
+				"buffer_size": 11675,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -155,15 +158,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9416,
+						"buffer_size": 11675,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8990,
-								8990
+								11658,
+								11658
 							]
 						],
 						"settings":
@@ -173,7 +176,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4113.0,
+						"translation.y": 5679.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -226,8 +229,8 @@
 						"selection":
 						[
 							[
-								10469,
-								10469
+								14990,
+								14990
 							]
 						],
 						"settings":
@@ -237,7 +240,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 5017.0,
+						"translation.y": 6529.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -274,7 +277,7 @@
 		"cols":
 		[
 			0.0,
-			0.692639447959,
+			0.453996549742,
 			1.0
 		],
 		"rows":
