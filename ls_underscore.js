@@ -368,7 +368,13 @@
         };
     };
 
-    
+    _.groupBy = group(function(result, value, key) {
+        if (_.has(result, key)) result[key].push(value); else result[key] = [value];
+    });
 
+
+    _.indexBy = group(function(result, value, key) {
+        result[key] = value;
+    });
 
 }.call(this));
