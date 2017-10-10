@@ -381,4 +381,18 @@
         if (_.has(result, key)) result[key]++; else result[key] = 1;
     });
 
+    //将任意可迭代的一些列元素生成一个数组
+    _.toArray = function(obj) {
+        if (!obj) return [];
+        if (_.isArray(obj)) return slice.call(obj);
+        if (isArrayLike(obj)) return _.map(obj, _.identity);
+        return _.values(obj);
+    };
+
+    //返回 对象中元素的大小值
+    _.size = function(obj) {
+        if (obj == null) return 0;
+        return isArrayLike(obj) ? obj.length : _.keys(obj).length;
+    };
+
 }.call(this));
