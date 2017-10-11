@@ -395,4 +395,13 @@
         return isArrayLike(obj) ? obj.length : _.keys(obj).length;
     };
 
+    _.partition = function(obj, predicate, context) {
+        predicate = cb(predicate, context);
+        var pass = [], fail = [];
+        _.each(obj, function(value, key, obj) {
+            (predicate(value, key, obj) ? pass : fail).push(value);
+        });
+        return [pass, fail];
+    };
+
 }.call(this));
