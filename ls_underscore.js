@@ -404,4 +404,13 @@
         return [pass, fail];
     };
 
+    // Array functions
+
+    _.first = _.head = _.take = function(
+        array, n, guard) {
+        if (array == null) return void 0;
+        if (n == null || guard) return array[0];
+        return _.initial(array, array.length - n);
+    };
+
 }.call(this));
