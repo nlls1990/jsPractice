@@ -1,0 +1,58 @@
+[branch]
+    autosetuprebase = always
+
+[core]
+    editor = vim
+	quotepath = false
+    autocrlf = false
+
+[color]
+    status = auto
+    branch = auto
+    diff = auto
+    ui = true
+    pager = true
+
+[color "branch"]
+    local = white
+    remote = red
+
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+
+[diff]
+		tool = vimdiff
+
+[difftool]
+		prompt = No
+
+[alias]
+    gl  = log -n 30  --format=\"%Cgreen%h %Cred[%ci] %Creset <%an>%C(yellow)%d%Creset %Creset %Cgreen%s %Creset \"
+    gl2 = log --format=\"%C(yellow)%h %Cred[%ci] %Creset<%cn> %Creset  %Cblue%s  %Creset \"
+    gll = log --format=\"%C(yellow)%h %Cred[%ad] %Creset<%an> %Creset  %Cblue%s  %Creset \"
+    glc = log --format=\"%Cgreen%h %Cred[%cd] %Creset<committer:%cn> : %Cred[%ad]  %Creset<author:%an>   %Creset \"
+    glc2= log --format=\"%Cgreen%h %Cred[%ci] %Creset<committer:%cn> : %Cred[%ai]  %Creset<author:%an>  %Creset \"
+    glc3= log --format=\"%Cgreen%h %Cred[%ci] %Creset<committer:%cn> : %Cred[%ai]  %Creset<author:%an> %n    %Cblue%s   %Creset \"
+    glt = log --format=\"%h [%ci] <%cn> %s  \"
+
+    st  = status -uno -s
+    st2 = status -s
+    co = checkout
+    bl = blame --date=short
+    ci = commit
+    dt = difftool
+    cp = cherry-pick
+    pop = stash apply
+    save = stash
+    cvt-ci = !sh -c 'commit_dialog && git commit -F ~/current_log'
+    cvt-cp = !sh -c 'gitcp $@' -
+    cvt-rt = !sh -c 'gitrevert $@' -
+    pushgt = !sh -c 'git push $1 HEAD:refs/for/$2' -
+
+[log]
+        date = short
+
+
