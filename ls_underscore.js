@@ -413,4 +413,8 @@
         return _.initial(array, array.length - n);
     };
 
+    _.initial = function(array, n, guard) {
+        return slice.call(array, 0, Math.max(0, array.length - (n == null || guard ? 1 : n)));
+    };
+
 }.call(this));
