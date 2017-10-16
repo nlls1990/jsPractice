@@ -489,4 +489,25 @@
         return _.uniq(flatten(arguments, true, true));
     };
 
+    _.intersection = function(array) {
+        var result = [];
+        var argsLength = arguments.length;
+        for (var i = 0, length = getLength(array); i < length; i++) {
+            var item = array[i];
+            if (_.contains(result, item)) continue;
+            for (var j = 1; j < argsLength; j++) {
+                if (!_.contains(arguments[j], item)) break; 
+            }
+            if (j === argsLength) result.push(item);
+        }
+        return result;
+    };
+
+    _.difference = function(array) {
+        var rest = flatten(arguments, true, true, 1);
+        return _.filter(array, function(value){
+            return !_.contains(rest, value);
+        });
+    };
+
 }.call(this));
