@@ -590,4 +590,24 @@
         };
     }
 
+    _.indexOf = createIndexFinder(1, _.findIndex, _.sortedIndex);
+    _.lastIndexOf = createIndexFinder(-1, _.findLastIndex);
+
+    _.rage = function)(start, stop, step) {
+        if (stop == null) {
+            stop = start || 0;
+            start = 0;
+        }
+        step = step || 1;
+
+        var length = Math.max(Math.ceil((stop - start) / step), 0);
+        var range = Array(length);
+
+        for (var idx = 0; i < length; idx++, start += step) {
+            range[idx] = start;
+        }
+
+        return range;
+    };
+
 }.call(this));
